@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}Install {% endblock %}
+{% block content %}
+<h1>Sign In</h1>
+<form method="POST" action="/install">
+    <label for="ssh_user">Ssh user</label>
+    <input type="text" name="ssh_user"
+           placeholder="jabbo"/>
+
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
