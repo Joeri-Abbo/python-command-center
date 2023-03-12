@@ -15,6 +15,14 @@ def home():
     return render_template('index.html')
 
 
+# Return json success response
+@app.route('/install')
+def install():
+    return {
+        'success': True,
+    }
+
+
 if __name__ == '__main__':
     port = 6969
     # Start Flask app
