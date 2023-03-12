@@ -1,13 +1,15 @@
 {% extends "layout.html" %}
 {% block title %}Install {% endblock %}
 {% block content %}
-<h1>Sign In</h1>
+<h1>
+    Install or update your settings
+</h1>
 <form method="POST" action="/install">
     <label for="ssh_user">Ssh user</label>
+    <br>
     <input type="text" name="ssh_user"
            placeholder="jabbo"/>
-
-
+    <br>
     <button type="submit">Submit</button>
 </form>
 {% endblock %}

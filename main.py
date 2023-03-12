@@ -40,6 +40,22 @@ def install():
         return render_template('install.html')
 
 
+@app.route('/servers')
+def servers():
+    messages = None
+    try:
+        messages = json.loads(request.args.get('messages', 'null'))
+    except json.JSONDecodeError:
+        pass
+    return render_template('servers.html', messages=messages)
+
+
+@app.route('/fetch')
+def fetch():
+    messages = json.dumps({"main": "Fetched data updated servers!"})
+    return redirect(url_for('.home', messages=messages))
+
+
 if __name__ == '__main__':
     # Start the app and open the homepage in a web browser
     app.run(port=APP_PORT)

@@ -1,0 +1,54 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background: #000;
+    width: 100%;
+    padding: 10px;
+    margin: 0;
+    display: flex;
+    color: white;
+    align-items: center;
+}
+
+nav .nav-link, nav .nav-link:visited {
+    padding: 3px;
+    color: white;
+}
+
+nav img {
+    width: 50px;
+}
+
+nav .wrapper {
+    display: flex;
+    align-items: center;
+    min-width: 80%;
+    justify-content: center;
+}
+
+#content {
+    margin: 0 auto;
+    width: 80%;
+    padding: 10px;
+}
+
+.message {
+    background: #eee;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+#footer {
+    background: #000;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+#footer a, #footer a:visited {
+    color: white;
+}
