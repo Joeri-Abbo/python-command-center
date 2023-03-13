@@ -4,7 +4,8 @@ from setuptools import setup
 setup(
     app=["main.py"],
     data_files=[
-        "templates", "static"
+        "templates",
+        "static"
     ],
     options={
         "py2app": {

@@ -2,7 +2,7 @@
 import json
 import threading
 import webbrowser
-from context_processors import inject_now
+from datetime import datetime
 
 from flask import Flask, render_template, request, redirect, url_for
 import helpers
@@ -11,6 +11,12 @@ app = Flask(__name__)
 
 # Set a constant for the app port number
 APP_PORT = 6969
+
+
+@app.context_processor
+def inject_now():
+    """Inject the current datetime into templates"""
+    return {'now': datetime.utcnow()}
 
 
 @app.context_processor
