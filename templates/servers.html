@@ -1,5 +1,28 @@
 {% extends "layout.html" %}
 {% block title %}Servers {% endblock %}
 {% block content %}
-View servers
+{% if servers %}
+
+
+{% for server in servers %}
+{{ server.host }} <br>
+{{ server.title }}<br>
+{{ server.slug }}<br>
+{{ server.description }}<br>
+{% if server.tags %}
+{% for tag in server.tags %}
+{{ tag }}<br>
+{% endfor %}
+{% endif %}
+
+<a href="{{ url_for('.server', server_name=server.slug)}}" class="nav-link">
+    View server
+</a>
+
+<br>
+<br>
+{% endfor %}
+
+
+{% endif %}
 {% endblock %}

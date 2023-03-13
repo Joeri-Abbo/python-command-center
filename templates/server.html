@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block title %}Server {{ server.title }} {% endblock %}
+{% block content %}
+
+<h1 class="inline">
+    {{ server.title }}
+    {% if server.tags %}
+    <ul class="inline tag">
+        {% for tag in server.tags %}
+        <li class="inline">{{ tag }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</h1>
+<p>
+    {{ server.description }}
+</p>
+
+
+<strong>SSH command</strong> : {{server_helper.get_ssh_command(server.host)}}<br>
+<br>
+<strong>Diskspace</strong> : <br>
+{% for line in server_helper.get_disk_space(server.host)%}
+{{ line }}<br>
+{% endfor %}
+
+<br>
+<strong>Docker 🐋</strong>
+{% if server.is_docker_host %}
+<br>
+<strong>Services</strong>
+<br>
+
+{% for line in server_helper.get_docker_services(server.host) %}
+{{ line }}<br>
+{% endfor %}
+
+<br><br>
+{% else %}
+<br>
+Not a docker host
+{% endif %}
+
+
+<strong>Actions</strong><br><br><br>
+{% if server.is_docker_host %}
+<a class="button" href="{{ url_for('.docker_prune', server_name=server.slug)}}">
+    Docker system prune
+</a>
+{% endif %}
+<a class="button" href="{{ url_for('.server_reboot', server_name=server.slug)}}">
+    Reboot
+</a>
+<br>
+<br>
+<br>
+{% endblock %}

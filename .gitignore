@@ -4,3 +4,4 @@ dist
 .idea
 settings.json
 __pycache__
+servers.json
