@@ -50,4 +50,7 @@ def get_servers() -> dict:
 
 def update_servers() -> None:
     """Update the servers"""
-    os.system(f"scp {{get_setting('fetch_command')}} {get_server_path()}")
+    os.system("scp {fetch_command} {server_path}".format(
+        fetch_command=get_setting("fetch_command"),
+        server_path=get_server_path()
+    ))
