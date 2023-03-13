@@ -2,6 +2,7 @@
 import paramiko
 
 import helpers
+from pssh.clients import SSHClient
 
 
 def get_ssh_command(host):
@@ -17,6 +18,7 @@ def get_ssh_client(host):
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh_client.connect(hostname=host, username=helpers.get_setting("ssh_user"))
+    # ssh_client = None
     return ssh_client
 
 
