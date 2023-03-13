@@ -33,7 +33,11 @@ def home():
 def install():
     if request.method == 'POST':
         ssh_user = request.form.get('ssh_user')
-        helpers.update_settings({'ssh_user': ssh_user})
+        fetch_command = request.form.get('fetch_command')
+        helpers.update_settings({
+            'ssh_user': ssh_user,
+            'fetch_command': fetch_command
+        })
         messages = json.dumps({"main": "Settings are updated!"})
         return redirect(url_for('.home', messages=messages))
     else:
@@ -52,6 +56,7 @@ def servers():
 
 @app.route('/fetch')
 def fetch():
+    helpers.update_servers()
     messages = json.dumps({"main": "Fetched data updated servers!"})
     return redirect(url_for('.home', messages=messages))
 

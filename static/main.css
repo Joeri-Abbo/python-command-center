@@ -52,3 +52,28 @@ nav .wrapper {
 #footer a, #footer a:visited {
     color: white;
 }
+
+form {
+    margin: auto;
+    width: 60%;
+}
+
+form label {
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+}
+
+form input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+form button {
+    padding: 5px;
+    border: 1px solid #ccc;
+    background: #eee;
+    width: 100%;
+    margin: 0;
+}
