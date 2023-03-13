@@ -1,3 +1,4 @@
+"""Setup script for py2app"""
 from setuptools import setup
 
 setup(

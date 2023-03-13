@@ -1,3 +1,4 @@
+"""Module main flask app"""
 import json
 import threading
 import webbrowser
@@ -12,8 +13,9 @@ app = Flask(__name__)
 APP_PORT = 6969
 
 
-# Decode the 'messages' parameter in the URL query string
 def decode_messages_param():
+    """Decode the 'messages' parameter in the URL query string"""
+
     messages = None
     messages_param = request.args.get('messages', 'null')
     if messages_param != 'null':
@@ -24,22 +26,22 @@ def decode_messages_param():
     return messages
 
 
-# Inject the current datetime into templates
 @app.context_processor
 def inject_now():
+    """Inject the current datetime into templates"""
     return {'now': datetime.utcnow()}
 
 
-# Render the homepage with optional messages
 @app.route('/')
 def home():
+    """Render the homepage with optional messages"""
     messages = decode_messages_param()
     return render_template('index.html', messages=messages)
 
 
-# Handle form submission for installing/updating settings
 @app.route('/install', methods=['GET', 'POST'])
 def install():
+    """Handle form submission for installing/updating settings"""
     if request.method == 'POST':
         ssh_user = request.form.get('ssh_user')
         fetch_command = request.form.get('fetch_command')
@@ -49,18 +51,21 @@ def install():
         })
         messages = json.dumps({"main": "Settings are updated!"})
         return redirect(url_for('.home', messages=messages))
-    else:
-        return render_template('install.html')
+
+    return render_template('install.html')
 
 
 @app.route('/servers')
 def servers():
+    """Show the servers"""
     messages = decode_messages_param()
     return render_template('servers.html', messages=messages)
 
 
 @app.route('/fetch')
 def fetch():
+    """Fetch the latest data from the servers"""
+
     threading.Thread(target=helpers.update_servers).start()
     messages = json.dumps({"main": "Fetched data updated servers!"})
     return redirect(url_for('.home', messages=messages))
