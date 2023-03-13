@@ -17,7 +17,6 @@
         <a href="{{ url_for('.fetch') }}" class="nav-link">Fetch</a>
         <a href="{{ url_for('.servers') }}" class="nav-link">Servers</a>
     </div>
-    <a href="{{ url_for('.fetch') }}" class="nav-link">Fetch</a>
 </nav>
 
 <div id="content">
@@ -31,7 +30,7 @@
     &copy; Copyright {{ now.year }} by <a href="https://joeriabbo.nl/" target="_blank">Joeri Abbo</a>.
     {% endblock %}
 </div>
-<script src="{{ url_for('static', filename='main.js') }}"></script>
+<script defer src="{{ url_for('static', filename='main.js') }}"></script>
 
 </body>
 </html>

@@ -1,4 +1,5 @@
 import json
+import threading
 import webbrowser
 from datetime import datetime
 
@@ -11,6 +12,18 @@ app = Flask(__name__)
 APP_PORT = 6969
 
 
+# Decode the 'messages' parameter in the URL query string
+def decode_messages_param():
+    messages = None
+    messages_param = request.args.get('messages', 'null')
+    if messages_param != 'null':
+        try:
+            messages = json.loads(messages_param)
+        except json.JSONDecodeError:
+            pass
+    return messages
+
+
 # Inject the current datetime into templates
 @app.context_processor
 def inject_now():
@@ -20,11 +33,7 @@ def inject_now():
 # Render the homepage with optional messages
 @app.route('/')
 def home():
-    messages = None
-    try:
-        messages = json.loads(request.args.get('messages', 'null'))
-    except json.JSONDecodeError:
-        pass
+    messages = decode_messages_param()
     return render_template('index.html', messages=messages)
 
 
@@ -46,22 +55,20 @@ def install():
 
 @app.route('/servers')
 def servers():
-    messages = None
-    try:
-        messages = json.loads(request.args.get('messages', 'null'))
-    except json.JSONDecodeError:
-        pass
+    messages = decode_messages_param()
     return render_template('servers.html', messages=messages)
 
 
 @app.route('/fetch')
 def fetch():
-    helpers.update_servers()
+    threading.Thread(target=helpers.update_servers).start()
     messages = json.dumps({"main": "Fetched data updated servers!"})
     return redirect(url_for('.home', messages=messages))
 
 
 if __name__ == '__main__':
-    # Start the app and open the homepage in a web browser
-    app.run(port=APP_PORT)
-    webbrowser.open(f'http://127.0.0.1:{APP_PORT}/')
+    # Start the app
+    app.run(port=APP_PORT, threaded=True)
+
+    # Open the homepage in a web browser
+    threading.Thread(target=webbrowser.open, args=(f'http://127.0.0.1:{APP_PORT}/',)).start()
