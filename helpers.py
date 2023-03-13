@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 import os
+from flask import request
 
 
 def write_file_json(path: Path, content: dict) -> None:
@@ -54,3 +55,16 @@ def update_servers() -> None:
         fetch_command=get_setting("fetch_command"),
         server_path=get_server_path()
     ))
+
+
+def decode_messages_param():
+    """Decode the 'messages' parameter in the URL query string"""
+
+    messages = None
+    messages_param = request.args.get('messages', 'null')
+    if messages_param != 'null':
+        try:
+            messages = json.loads(messages_param)
+        except json.JSONDecodeError:
+            pass
+    return messages

@@ -2,7 +2,7 @@
 import json
 import threading
 import webbrowser
-from datetime import datetime
+from context_processors import inject_now
 
 from flask import Flask, render_template, request, redirect, url_for
 import helpers
@@ -13,30 +13,16 @@ app = Flask(__name__)
 APP_PORT = 6969
 
 
-def decode_messages_param():
-    """Decode the 'messages' parameter in the URL query string"""
-
-    messages = None
-    messages_param = request.args.get('messages', 'null')
-    if messages_param != 'null':
-        try:
-            messages = json.loads(messages_param)
-        except json.JSONDecodeError:
-            pass
-    return messages
-
-
 @app.context_processor
-def inject_now():
-    """Inject the current datetime into templates"""
-    return {'now': datetime.utcnow()}
+def make_template_globals():
+    """Register custom context processors"""
+    return inject_now()
 
 
 @app.route('/')
 def home():
     """Render the homepage with optional messages"""
-    messages = decode_messages_param()
-    return render_template('index.html', messages=messages)
+    return render_template('index.html', messages=helpers.decode_messages_param())
 
 
 @app.route('/install', methods=['GET', 'POST'])
@@ -58,8 +44,7 @@ def install():
 @app.route('/servers')
 def servers():
     """Show the servers"""
-    messages = decode_messages_param()
-    return render_template('servers.html', messages=messages)
+    return render_template('servers.html', messages=helpers.decode_messages_param())
 
 
 @app.route('/fetch')
