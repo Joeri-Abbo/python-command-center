@@ -78,7 +78,7 @@ def server_reboot(server_name):
         messages = json.dumps({"main": "No server found with slug" + server_name + "!"})
 
         return redirect(url_for('.servers', messages=messages))
-    server_helper.run_reboot(server.get('host'))
+    threading.Thread(target=server_helper.run_reboot(server.get('host'))).start()
     messages = json.dumps({"main": "Server reboot " + server.get('title') + "!"})
     return redirect(url_for('.servers', messages=messages))
 
@@ -90,7 +90,7 @@ def docker_prune(server_name):
         messages = json.dumps({"main": "No server found with slug" + server_name + "!"})
 
         return redirect(url_for('.servers', messages=messages))
-    server_helper.run_docker_system_prune(server.get('host'))
+    threading.Thread(target=server_helper.run_docker_system_prune(server.get('host'))).start()
     messages = json.dumps({"main": "Docker system prune " + server.get('title') + "!"})
     return redirect(url_for('.servers', messages=messages))
 
