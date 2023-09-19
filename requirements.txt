@@ -31,4 +31,4 @@ tomlkit==0.12.1
 typing_extensions==4.8.0
 Werkzeug==2.3.7
 wrapt==1.15.0
-zipp==3.16.2
+zipp==3.17.0
