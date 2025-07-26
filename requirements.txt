@@ -18,7 +18,7 @@ MarkupSafe==2.1.5
 mccabe==0.7.0
 packaging==24.0
 paramiko==3.4.0
-platformdirs==4.1.0
+platformdirs==4.3.8
 pluggy==1.4.0
 pycodestyle==2.11.1
 pycparser==2.22
