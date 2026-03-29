@@ -1,7 +1,5 @@
-.eggs
-build
-dist
-.idea
-settings.json
-__pycache__
-servers.json
+.venv/
+__pycache__/
+.pytest_cache/
+instance/
+.DS_Store
